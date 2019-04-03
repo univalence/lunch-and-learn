@@ -20,7 +20,12 @@ object Expression {
    *
    * eg. eval(Mult(Var, Add(Const(2), Var)))(3) => 15
    */
-  def eval(expression: Expression)(variable: Double): Double =
+  def eval(expression: Expression)(variable: Double): Double = expression match {
+    case Const(v) => v
+    case Add(left,right) => eval(left)(variable) + eval(right)(variable)
+    case Mult(left,right) => eval(left)(variable) * eval(right)(variable)
+
+  }
 
   /**
    * Convert an expression to its postfix representation.
